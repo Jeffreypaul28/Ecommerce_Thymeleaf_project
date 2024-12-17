@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zooky.com - Grocery</title>
+    <style type="text/css">
+        * { margin: 0; padding: 0; box-sizing: border-box; font-weight: 400; }
+        #navbar { position: sticky; top: 0; left: 0; z-index: 100; padding: .5rem 5rem; background-color: rgb(140, 67, 158); }
+        .navbar .navbar-brand { font-size: 25px; font-weight: 600; color: darkorange !important; }
+        #navbarContent a { color: aliceblue; border-bottom: 2px solid transparent; }
+        #navbarContent a:hover { color: rgb(215, 138, 13); border-bottom: 2px solid transparent; }
+        .btn-custom { color: darkorange; }
+        .btn-custom:hover { color: black; }
+        .carousel-container { display: flex; justify-content: center; margin: 20px 0; }
+        .carousel-inner { width: 50%; height: 300px; overflow: hidden; }
+        .carousel-inner img { display: block; margin: 0 auto; width: 60%; height: 100%; object-fit: cover; }
+        .grocery-container { padding: 20px; display: flex; flex-wrap: wrap; justify-content: space-around; }
+        .grocery-item { border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px; background-color: #f9f9f9; width: calc(33% - 40px); box-sizing: border-box; text-align: center; }
+        .grocery-item img { max-width: 100%; height: auto; display: block; margin: 0 auto 10px; }
+        .grocery-item h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .grocery-item p { color: #333; }
+        .btn-container { display: flex; justify-content: center; margin-top: 10px; }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand">Zooki.com</a>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/groceryPage">Grocery</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="/gadgetspage">Gadgets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mobiles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Cosmetics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Dress</a></li>
+                </ul>
+                <div class="ms-auto d-flex align-items-center">
+                    <a class="btn btn-custom me-2" href="/getlogin">Log In</a>
+                    <a class="btn btn-custom me-2" href="/adminPage">Add Admin</a>
+                    <a class="btn btn-custom me-2" href="/cartpage">Cart</a>
+                       <a class="btn btn-custom me-2" href="/fpage">Home</a>  
+                    
+              
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block first-slide" src="zooky3.png" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block" src="grocery.jpg" alt="Second slide">
+                </div>
+                 <div class="carousel-item">
+                    <img class="d-block" src="Corsel3.jpg" alt="third slide">
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1><center>Gadgets</center></h1>
+    <!-- Grocery Items Section -->
+    <div class="grocery-container">
+        <div th:each="product : ${gadgets}" class="grocery-item">
+            <img th:src="@{${product.purl}}" alt="Grocery Item">
+            <h3 th:text="${product.pname}">Grocery Item</h3>
+            <p th:text="'Price: ' + ${product.price}">Item price</p>
+            <div class="btn-container">
+                 <a class="btn btn-primary" th:href="@{/addToCart(id=${product.id})}">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
